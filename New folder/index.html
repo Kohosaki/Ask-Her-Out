@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="./styles.css">
+    </head> 
+    <body>
+        <div class="container">
+
+            <!-- Gumino.gif placed before the header -->
+            <div class="gumino">
+                <img id="guminoImage" src="Gumino.gif" width="300">
+            </div>
+
+            <div>
+                <h1 class="header_text">Would you be my valentine?</h1>
+            </div>
+
+            <!-- VeC.gif remains as before, now below the header -->
+            <div class="gif_container">
+                <img id="gifImage" src="VeC.gif" alt="GIF" width="500">
+            </div>
+
+            <div class="buttons">
+                <button class="btn" id="yesButton" onclick="nextPage()">
+                    <img src="YES.png" alt="Yes" class="button-img">
+                </button>
+                <button class="btn" id="noButton" onmouseover="moveButton(); shrinkButton(); changeGif()" onclick="moveButton()">
+                    <img src="NO.png" alt="No" class="button-img">
+                </button>
+            </div>
+
+            <script>
+                // Array of GIFs to cycle through
+                const gifs = [
+                    "VeC.gif",    // Initial GIF
+                    "1W5R.gif",   // GIF 1
+                    "PraC.gif",   // GIF 2
+                    "XJ1C.gif",   // GIF 3
+                    "819r.gif"    // GIF 4
+                ];
+
+                // Index to keep track of the current GIF
+                let gifIndex = 0;
+                let noScaleFactor = 1;  // Start with the original scale (100%)
+                let yesScaleFactor = 1;
+
+                function nextPage() {
+                    window.location.href = "yes.html";
+                }
+
+                function moveButton() {
+                    var x = Math.random() * (window.innerWidth - document.getElementById('noButton').offsetWidth) - 85;
+                    var y = Math.random() * (window.innerHeight - document.getElementById('noButton').offsetHeight) - 48;
+                    document.getElementById('noButton').style.left = `${x}px`;
+                    document.getElementById('noButton').style.top = `${y}px`;
+                }
+
+                // Change the GIF on hover over the "No" button and move it continuously
+                function changeGif() {
+                    if (gifIndex < gifs.length - 1) {
+                        gifIndex = gifIndex + 1;  // Cycle to the next GIF
+                        document.getElementById('gifImage').src = gifs[gifIndex];  // Update GIF source
+                    }
+                }
+
+                // Shrink the "No" button on hover until the last GIF
+                function shrinkButton() {
+                    noScaleFactor -= 0.1;  // Reduce scale by 10% on each hover
+                    yesScaleFactor += 0.3;
+                    document.getElementById('noButton').style.transform = `scale(${noScaleFactor})`;
+                    document.getElementById('yesButton').style.transform = `scale(${yesScaleFactor * yesScaleFactor})`;
+                }
+
+                // Change GIF on hover and handle shrinking
+                function handleHover() {
+                    changeGif();  // Change the GIF on hover
+                    shrinkButton();  // Shrink the "No" button
+                }
+            </script> 
+        </div>
+    </body> 
+</html>
